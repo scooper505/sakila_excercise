@@ -153,3 +153,23 @@ WHERE film_id IN
   	WHERE name = "Family"
   	)
  );
+
+
+/* 7E: most frequently rented movies  */
+SELECT film.title, COUNT(film.film_id) AS rental_count
+FROM film
+JOIN inventory
+	ON film.film_id = inventory.film_id
+	JOIN rental 
+		ON inventory.inventory_id = rental.inventory_id
+GROUP BY film.title
+ORDER BY rental_count DESC;
+
+
+/* 7E: business in dollars for each store */
+
+SELECT customer.store_id AS store_id, SUM(payment.amount) AS total_revenue
+FROM customer
+JOIN payment
+	ON customer.customer_id = payment.customer_id
+GROUP BY customer.store_id;
